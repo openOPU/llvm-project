@@ -400,6 +400,14 @@ def FeatureStdExtZvfh
                        "'Zvfh' (Vector Half-Precision Floating-Point)",
                        [FeatureStdExtZve32f]>;
 
+def FeatureExtXopu
+    : SubtargetFeature<"xopu", "HasExtXopu", "true",
+                       "'Xopu' (Machine Learning Extension)",
+                       []>;
+def HasExtXopu : Predicate<"Subtarget->hasExtXopu()">,
+                    AssemblerPredicate<(all_of FeatureExtXopu),
+                    "'Xopu' (Machine Learning Extension)">;
+
 def Feature64Bit
     : SubtargetFeature<"64bit", "HasRV64", "true", "Implements RV64">;
 def IsRV64 : Predicate<"Subtarget->is64Bit()">,

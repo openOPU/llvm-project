@@ -587,6 +587,18 @@ foreach m = LMULList.m in {
   }
 }
 
+// Xopu matrix registers
+let RegAltNameIndices = [ABIRegAltName] in {
+  foreach Index = 0-31 in {
+    def M#Index : RISCVReg<Index, "m"#Index, ["m"#Index]>, DwarfRegNum<[!add(Index, 128)]>;
+  }
+}
+
+let isAllocatable = 0 in
+def MR : RegisterClass<"RISCV", [untyped], 32, (add (sequence "M%u", 0, 31))> {
+  let Size = 32; // wrong
+}
+
 // Special registers
 def FFLAGS : RISCVReg<0, "fflags">;
 def FRM    : RISCVReg<0, "frm">;
